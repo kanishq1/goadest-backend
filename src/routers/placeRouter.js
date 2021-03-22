@@ -19,50 +19,22 @@ router.post('/place', async (req, res) => {
 
 router.get('/travelplaces', async (req, res) => {
     try {
-        let count = 0;
         const places = await Place.find()
-        let dests = new Array();
         const userdist = req.body.distance || 15;
 
 
-        let placecount = 0;
-
-        places.map((place) => {
+        const dests = places.filter((place) => {
 
             let typeofplace = req.body.typeofplace
             if (!req.body.typeofplace) {
                 typeofplace = place.typeofplace
             }
 
-            const placedist = getDistfromCoords(place.latitude, place.longitude)
-            if (placedist <= userdist && typeofplace === place.typeofplace) {
-                placecount = placecount + 1
-            }
-        })
-
-        places.map((place) => {
-
-            let typeofplace = req.body.typeofplace
-            if (!req.body.typeofplace) {
-                typeofplace = place.typeofplace
-            }
-
-            console.log(typeofplace)
+            let placedist = getDistfromCoords(place.latitude, place.longitude);
 
 
-            const placedist = getDistfromCoords(place.latitude, place.longitude)
-
-            if (placedist <= userdist && typeofplace === place.typeofplace) {
-
-                for (let i = 0; i < placecount; i = i + 1) {
-                    if (dests[i] === undefined) {
-                        dests[i] = place;
-                        count = count + 1;
-                        break;
-                    }
-                }
-            }
-        })
+            return placedist <= userdist && typeofplace === place.typeofplace;
+        });
 
         res.send(dests)
     } catch (e) {
