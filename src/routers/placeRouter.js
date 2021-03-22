@@ -22,21 +22,37 @@ router.get('/travelplaces', async (req, res) => {
         let count = 0;
         const places = await Place.find()
         let dests = new Array();
-        const userdist = req.body.distance;
+        const userdist = req.body.distance || 15;
+
 
         let placecount = 0;
 
         places.map((place) => {
+
+            let typeofplace = req.body.typeofplace
+            if (!req.body.typeofplace) {
+                typeofplace = place.typeofplace
+            }
+
             const placedist = getDistfromCoords(place.latitude, place.longitude)
-            if (placedist <= userdist) {
+            if (placedist <= userdist && typeofplace === place.typeofplace) {
                 placecount = placecount + 1
             }
         })
 
         places.map((place) => {
+
+            let typeofplace = req.body.typeofplace
+            if (!req.body.typeofplace) {
+                typeofplace = place.typeofplace
+            }
+
+            console.log(typeofplace)
+
+
             const placedist = getDistfromCoords(place.latitude, place.longitude)
 
-            if (placedist <= userdist) {
+            if (placedist <= userdist && typeofplace === place.typeofplace) {
 
                 for (let i = 0; i < placecount; i = i + 1) {
                     if (dests[i] === undefined) {
