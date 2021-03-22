@@ -23,7 +23,7 @@ router.post('/post', async (req, res) => {
 router.get('/posts', async (req, res) => {
     try {
         const posts = await Post.find();
-        res.status(200).send(posts.sort((a, b) => b.updatedAt - a.updatedAt))
+        res.status(200).send(posts.sort((a, b) => b.createdAt - a.createdAt))
     } catch (e) {
         res.status(500).send(e.message)
     }
