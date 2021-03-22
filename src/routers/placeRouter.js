@@ -5,6 +5,8 @@ const Place = require('../models/place.js')
 
 const router = new express.Router()
 
+
+
 // Add a place to database
 
 router.post('/place', async (req, res) => {
@@ -16,6 +18,10 @@ router.post('/place', async (req, res) => {
         res.status(500).send(e.message)
     }
 })
+
+
+
+//Get Place Data
 
 router.get('/travelplaces', async (req, res) => {
     try {
