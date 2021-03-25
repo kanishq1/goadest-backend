@@ -23,10 +23,10 @@ router.post('/place', async (req, res) => {
 
 //Get Place Data
 
-router.get('/travelplaces', async (req, res) => {
+router.post('/travelplaces', async (req, res) => {
     try {
         const places = await Place.find()
-        const userdist = req.body.distance || 15;
+        const userdist = req.body.distance || 0;
 
 
         const dests = places.filter((place) => {
@@ -42,7 +42,7 @@ router.get('/travelplaces', async (req, res) => {
             return placedist <= userdist && typeofplace === place.typeofplace;
         });
 
-        res.send(dests)
+        res.send(dests.sort())
     } catch (e) {
         res.status(500).send(e.message)
     }
