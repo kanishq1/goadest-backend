@@ -32,7 +32,7 @@ router.post('/travelplaces', async (req, res) => {
         const dests = places.filter((place) => {
 
             let typeofplace = req.body.typeofplace
-            if (!req.body.typeofplace) {
+            if (req.body.typeofplace === 'all') {
                 typeofplace = place.typeofplace
             }
 
