@@ -29,5 +29,15 @@ router.get('/posts', async (req, res) => {
     }
 })
 
+router.get('/post/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const post = await Post.findById(id)
+        res.status(200).send(post);
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+})
+
 
 module.exports = router;
