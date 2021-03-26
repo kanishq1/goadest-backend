@@ -25,10 +25,12 @@ const placeSchema = new mongoose.Schema({
         type: Decimal128,
         required: true,
     },
-    typeofplace:
-    {
+    typeofplace: {
         type: String,
         required: true
+    },
+    imageurl: {
+        type: String
     }
 })
 
