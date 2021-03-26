@@ -57,11 +57,4 @@ function getLocations(input, locationNames) {
 }
 
 
-const userSearch = 'calangute';
-
-
-dests = getLocations(userSearch, dests);
-
-console.log(dests)
-
-// module.exports = getLocations;
+module.exports = getLocations;

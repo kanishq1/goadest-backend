@@ -2,6 +2,7 @@ const express = require('express')
 const getDistfromCoords = require('../distcalculation.js')
 
 const Place = require('../models/place.js')
+const getLocations = require('../search.js')
 
 const router = new express.Router()
 
@@ -47,5 +48,20 @@ router.post('/travelplaces', async (req, res) => {
         res.status(500).send(e.message)
     }
 })
+
+router.post('/search', async (req, res) => {
+    try {
+        const userSearch = req.body.userSearch || '';
+        const places = await Place.find()
+
+        dests = getLocations(userSearch, places)
+
+        res.status(200).send(dests[0])
+
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+})
+
 
 module.exports = router
