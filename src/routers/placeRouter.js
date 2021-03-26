@@ -42,7 +42,7 @@ router.post('/travelplaces', async (req, res) => {
             return placedist <= userdist && typeofplace === place.typeofplace;
         });
 
-        res.send(dests.sort())
+        res.send(dests)
     } catch (e) {
         res.status(500).send(e.message)
     }
